@@ -1,6 +1,6 @@
 package SwordFingerOffer;
 
-import org.jetbrains.annotations.NotNull;
+import com.sun.istack.internal.NotNull;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
