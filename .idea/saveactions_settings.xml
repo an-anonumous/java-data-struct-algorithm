@@ -4,8 +4,9 @@
     <option name="actions">
       <set>
         <option value="activate" />
+        <option value="noActionIfCompileErrors" />
         <option value="organizeImports" />
-        <option value="reformat" />
+        <option value="reformatChangedCode" />
         <option value="rearrange" />
         <option value="missingOverrideAnnotation" />
         <option value="useBlocks" />
