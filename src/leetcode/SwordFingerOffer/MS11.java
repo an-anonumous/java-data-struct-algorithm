@@ -1,4 +1,4 @@
-package SwordFingerOffer;
+package leetcode.SwordFingerOffer;
 
 import org.junit.Test;
 
@@ -15,30 +15,6 @@ import org.junit.Test;
  * 输出：0
  */
 public class MS11 {
-
-    /**
-     * 从两端向中间找
-     *
-     * @param numbers
-     * @return
-     */
-    public int minArray( int[] numbers ) {
-        int head = 0, tail = numbers.length-1;
-        while (head<=tail) {
-
-            if (head+1<numbers.length && numbers[head]>numbers[head+1]) {
-                return numbers[head+1];
-            }
-
-            if (tail-1 >= 0 && numbers[tail]<numbers[tail-1]) {
-                return numbers[tail];
-            }
-
-            head++;
-            tail--;
-        }
-        return numbers[0];
-    }
 
     /**
      * 解题思路：
@@ -74,6 +50,30 @@ public class MS11 {
     public void test1() {
         MS11 ms11 = new MS11();
         System.out.println( ms11.minArray( new int[]{3, 4, 5, 1, 2} ) );
+    }
+
+    /**
+     * 从两端向中间找
+     *
+     * @param numbers
+     * @return
+     */
+    public int minArray( int[] numbers ) {
+        int head = 0, tail = numbers.length-1;
+        while (head<=tail) {
+
+            if (head+1<numbers.length && numbers[head]>numbers[head+1]) {
+                return numbers[head+1];
+            }
+
+            if (tail-1 >= 0 && numbers[tail]<numbers[tail-1]) {
+                return numbers[tail];
+            }
+
+            head++;
+            tail--;
+        }
+        return numbers[0];
     }
 
     @Test

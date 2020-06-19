@@ -1,4 +1,4 @@
-package SwordFingerOffer;
+package leetcode.SwordFingerOffer;
 
 import com.sun.istack.internal.NotNull;
 import org.junit.Test;

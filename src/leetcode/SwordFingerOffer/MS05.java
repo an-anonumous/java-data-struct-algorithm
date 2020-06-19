@@ -1,4 +1,4 @@
-package SwordFingerOffer;
+package leetcode.SwordFingerOffer;
 
 /**
  * 替换空格

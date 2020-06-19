@@ -1,4 +1,4 @@
-package leetcode.hot100;
+package leetcode.Hot100;
 
 import org.junit.Test;
 
@@ -21,30 +21,49 @@ import java.util.Map;
  */
 
 public class H01 {
-    public static void main(String[] args) {
-        int[] nums = new int[]{2 , 7 , 11 , 15};
+    public static void main( String[] args ) {
+        int[] nums = new int[]{2, 7, 11, 15};
         
         H01 solution1 = new H01();
-        int[] indexs = solution1.twoSum(nums , 9);
-        System.out.println(Arrays.toString(indexs));
+        int[] indexs = solution1.twoSum( nums, 9 );
+        System.out.println( Arrays.toString( indexs ) );
+    }
+    
+    /**
+     * 一遍哈希表
+     * 事实证明，我们可以一次完成。在进行迭代并将元素插入到表中的同时，我们还会回过头来检查表中是否已经存在当前元素所对应的目标元素。
+     * 如果它存在，那我们已经找到了对应解，并立即将其返回。
+     *
+     * @param nums
+     * @param target
+     * @return
+     */
+    public int[] twoSum( int[] nums, int target ) {
+        if (nums == null || nums.length == 0) {
+            return null;
+        }
+        
+        Map<Integer, Integer> map = new HashMap<>();
+        for (int i = 0; i < nums.length; i++) {
+            Integer integer = map.get( target - nums[i] );
+            if (integer != null && integer != i) {
+                return new int[]{i, integer};
+            }
+            
+            // 防止数组中有重复数据时，可能会出现target - nums[i]与nums[i]相等且nums[i]*2==target，后面的下标替换了前面的下标，
+            // 导致map中始终只有最后一个值得下标，所以先看看map中有没有要找的元素。
+            map.put( nums[i], i );
+        }
+        return null;
     }
     
     @Test
     public void test() {
-        int[] nums = new int[]{3 , 2 , 4};
+        int[] nums = new int[]{3, 2, 4};
         
         H01 solution1 = new H01();
-        int[] indexs = solution1.twoSum(nums , 6);
-        System.out.println(Arrays.toString(indexs));
-    }
-    
-    @Test
-    public void test2() {
-        int[] nums = new int[]{3 , 3};
-        
-        H01 solution1 = new H01();
-        int[] indexs = solution1.twoSum(nums , 6);
-        System.out.println(Arrays.toString(indexs));
+        int[] indexs = solution1.twoSum( nums, 6 );
+        System.out.println( Arrays.toString( indexs ) );
     }
     
     /**
@@ -140,32 +159,12 @@ public class H01 {
     //     }
     //     return null;
     // }
+    @Test
+    public void test2() {
+        int[] nums = new int[]{3, 3};
     
-    /**
-     * 一遍哈希表
-     * 事实证明，我们可以一次完成。在进行迭代并将元素插入到表中的同时，我们还会回过头来检查表中是否已经存在当前元素所对应的目标元素。
-     * 如果它存在，那我们已经找到了对应解，并立即将其返回。
-     *
-     * @param nums
-     * @param target
-     * @return
-     */
-    public int[] twoSum(int[] nums , int target) {
-        if (nums == null || nums.length == 0) {
-            return null;
-        }
-        
-        Map<Integer, Integer> map = new HashMap<>();
-        for (int i = 0; i < nums.length; i++) {
-            Integer integer = map.get(target - nums[i]);
-            if (integer != null && integer != i) {
-                return new int[]{i , integer};
-            }
-            
-            // 防止数组中有重复数据时，可能会出现target - nums[i]与nums[i]相等且nums[i]*2==target，后面的下标替换了前面的下标，
-            // 导致map中始终只有最后一个值得下标，所以先看看map中有没有要找的元素。
-            map.put(nums[i] , i);
-        }
-        return null;
+        H01 solution1 = new H01();
+        int[] indexs = solution1.twoSum( nums, 6 );
+        System.out.println( Arrays.toString( indexs ) );
     }
 }

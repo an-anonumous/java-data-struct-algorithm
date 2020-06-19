@@ -1,4 +1,4 @@
-package SwordFingerOffer;
+package leetcode.SwordFingerOffer;
 
 import java.util.Arrays;
 

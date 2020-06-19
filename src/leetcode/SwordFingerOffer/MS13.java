@@ -1,4 +1,4 @@
-package SwordFingerOffer;
+package leetcode.SwordFingerOffer;
 
 import org.junit.Test;
 
@@ -59,26 +59,6 @@ public class MS13 {
         return count;
     }
 
-    boolean canEnter( int r, int c, int k ) {
-        int res = 0;
-        while (r>0) {
-            res += r%10;
-            r /= 10;
-        }
-
-        while (c>0) {
-            res += c%10;
-            c /= 10;
-        }
-
-        if (res<=k) {
-            return true;
-        }
-
-        return false;
-    }
-
-
     @Test
     public void test1() {
         MS13 ms13 = new MS13();
@@ -98,6 +78,25 @@ public class MS13 {
         MS13 ms13 = new MS13();
         assertEquals( true, ms13.canEnter( 35, 37, 18 ) );
         assertEquals( false, ms13.canEnter( 35, 38, 18 ) );
+    }
+
+    boolean canEnter( int r, int c, int k ) {
+        int res = 0;
+        while (r>0) {
+            res += r%10;
+            r /= 10;
+        }
+
+        while (c>0) {
+            res += c%10;
+            c /= 10;
+        }
+
+        if (res<=k) {
+            return true;
+        }
+
+        return false;
     }
 
     /**
