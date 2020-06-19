@@ -1,4 +1,4 @@
-package SwordFingerOffer;
+package leetcode.SwordFingerOffer;
 
 import org.junit.Test;
 
@@ -114,16 +114,35 @@ public class MS03 {
             System.out.println(new MS04().findNumberIn2DArray(matrix , 20));
         }
         
-        @Test
-        public void test1() {
-            int[][] matrix = new int[][]{
-                    {1 , 2 , 3 , 4 , 5} ,
-                    {6 , 7 , 8 , 9 , 10} ,
-                    {11 , 12 , 13 , 14 , 15} ,
-                    {16 , 17 , 18 , 19 , 20} ,
-                    {21 , 22 , 23 , 24 , 25}
-            };
-            System.out.println(new MS04().findNumberIn2DArray(matrix , 5));
+        /**
+         * 官方解题思路：
+         * 利用矩阵部分有序的特点，从最右上角开始元matrix[r][c]素开始与待查找元素num比较，如果num > matrix[r][c]则可以确定r行的元素都比num
+         * 小，舍弃r行；如果num < matrix[r][c],则可以确认num比c列的元素都小，所以舍弃第c列；如果num == matrix[r][c]则返回。
+         *
+         * 复杂度分析
+         * 时间复杂度：O(n+m)。访问到的下标的行最多增加 n 次，列最多减少 m 次，因此循环体最多执行 n + m 次。
+         * 空间复杂度：O(1)。
+         *
+         * @param matrix
+         * @param num
+         * @return
+         */
+        public boolean findNumberIn2DArray(int[][] matrix , int num) {
+            if (matrix == null || matrix.length == 0 || matrix[0].length == 0) {
+                return false;
+            }
+            
+            int r = 0, c = matrix[0].length - 1;
+            while (r < matrix.length && c >= 0) {
+                if (matrix[r][c] == num) {
+                    return true;
+                } else if (matrix[r][c] < num) {
+                    r++;
+                } else {
+                    c--;
+                }
+            }
+            return false;
         }
         
         /**
@@ -173,35 +192,16 @@ public class MS03 {
         //     }
         // }
         
-        /**
-         * 官方解题思路：
-         * 利用矩阵部分有序的特点，从最右上角开始元matrix[r][c]素开始与待查找元素num比较，如果num > matrix[r][c]则可以确定r行的元素都比num
-         * 小，舍弃r行；如果num < matrix[r][c],则可以确认num比c列的元素都小，所以舍弃第c列；如果num == matrix[r][c]则返回。
-         *
-         * 复杂度分析
-         * 时间复杂度：O(n+m)。访问到的下标的行最多增加 n 次，列最多减少 m 次，因此循环体最多执行 n + m 次。
-         * 空间复杂度：O(1)。
-         *
-         * @param matrix
-         * @param num
-         * @return
-         */
-        public boolean findNumberIn2DArray(int[][] matrix , int num) {
-            if (matrix == null || matrix.length == 0 || matrix[0].length == 0) {
-                return false;
-            }
-            
-            int r = 0, c = matrix[0].length - 1;
-            while (r < matrix.length && c >= 0) {
-                if (matrix[r][c] == num) {
-                    return true;
-                } else if (matrix[r][c] < num) {
-                    r++;
-                } else {
-                    c--;
-                }
-            }
-            return false;
+        @Test
+        public void test1() {
+            int[][] matrix = new int[][]{
+                    {1 , 2 , 3 , 4 , 5} ,
+                    {6 , 7 , 8 , 9 , 10} ,
+                    {11 , 12 , 13 , 14 , 15} ,
+                    {16 , 17 , 18 , 19 , 20} ,
+                    {21 , 22 , 23 , 24 , 25}
+            };
+            System.out.println(new MS04().findNumberIn2DArray(matrix , 5));
         }
     }
 }
