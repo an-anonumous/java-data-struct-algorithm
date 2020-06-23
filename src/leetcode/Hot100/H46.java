@@ -22,10 +22,23 @@ import java.util.*;
  */
 public class H46 {
     
+    public static void main( String[] args ) {
+        H46 h46 = new H46();
+        List<List<Integer>> lists = h46.permute( new int[]{0, 1, 2, 3, 4, 5, 6, 7, 8, 9} );
+        for (int i = 0; i < lists.size(); i++) {
+            List<Integer> integers = lists.get( i );
+            System.out.print( integers );
+        }
+    }
+    
     @Test
     public void test() {
         H46 h46 = new H46();
-        System.out.println( h46.permute( new int[]{0, 1, 2, 3, 4, 5, 6, 7, 8, 9} ) );
+        List<List<Integer>> lists = h46.permute( new int[]{0, 1, 2, 3, 4, 5, 6, 7, 8, 9} );
+        for (int i = 0; i < lists.size(); i++) {
+            List<Integer> integers = lists.get( i );
+            System.out.println( integers );
+        }
     }
     
     public List<List<Integer>> permute( int[] nums ) {
