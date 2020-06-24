@@ -23,8 +23,10 @@ import java.util.*;
 public class H49 {
     public List<List<String>> groupAnagrams( String[] strs ) {
         List<List<String>> result = new LinkedList<>();
+    
+        // 将每个字符串按字母排序后，作为key值
         HashMap<String, List<String>> map = new HashMap<>();
-        
+    
         for (String str : strs) {
             char[] array = str.toCharArray();
             Arrays.sort( array );
