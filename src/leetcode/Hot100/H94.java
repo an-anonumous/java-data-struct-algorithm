@@ -63,15 +63,18 @@ public class H94 {
         }
         return result;
     }
-}
-
-
-// Definition for a binary tree node.
-class TreeNode {
-    int val;
-    TreeNode left;
-    TreeNode right;
     
-    TreeNode( int x ) { val = x; }
+    // Definition for a binary tree node.
+    protected static class TreeNode {
+        int val;
+        TreeNode left;
+        TreeNode right;
+        
+        TreeNode( int x ) { val = x; }
+    }
 }
+
+
+
+
 
