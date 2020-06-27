@@ -15,15 +15,9 @@ package leetcode.Hot100;
  * 原因：342 + 465 = 807
  */
 
-class ListNode {
-    int val;
-    ListNode next;
-    
-    ListNode( int x ) { val = x; }
-}
-
 
 public class H02 {
+    
     public ListNode addTwoNumbers( ListNode l1, ListNode l2 ) {
         ListNode head = null, pre = null;
         
@@ -86,5 +80,12 @@ public class H02 {
         }
         
         return head;
+    }
+    
+    protected static class ListNode {
+        int val;
+        ListNode next;
+        
+        ListNode( int x ) { val = x; }
     }
 }
