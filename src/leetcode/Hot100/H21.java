@@ -39,14 +39,14 @@ public class H21 {
             curr = curr.next;
             l1 = l1.next;
         }
-        
+    
         // l2还有剩余节点
         while (l2 != null) {
             curr.next = new ListNode( l2.val );
             curr = curr.next;
             l2 = l2.next;
         }
-        
+    
         return head.next;
     }
     
@@ -69,7 +69,14 @@ public class H21 {
             l2.next = mergeTwoLists2( l1, l2.next );
             return l2;
         }
+    
+    }
+    
+    protected static class ListNode {
+        int val;
+        ListNode next;
         
+        ListNode( int x ) { val = x; }
     }
 }
     

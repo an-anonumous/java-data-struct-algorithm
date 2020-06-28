@@ -1,7 +1,5 @@
 package leetcode.Hot100;
 
-import com.sun.jndi.toolkit.ctx.HeadTail;
-
 /**
  * 19. 删除链表的倒数第N个节点
  *
@@ -18,12 +16,7 @@ import com.sun.jndi.toolkit.ctx.HeadTail;
  * 你能尝试使用一趟扫描实现吗？
  */
 
-// Definition for singly-linked list.
-// class ListNode {
-//     int val;
-//     ListNode next;
-//     ListNode(int x) { val = x; }
-// }
+
 
 
 public class H19 {
@@ -36,14 +29,22 @@ public class H19 {
         for (int i = 0; i <=n; i++) {
             tail=tail.next;
         }
-        
-        while (tail!=null){
-            tail=tail.next;
-            front=front.next;
+    
+        while (tail != null) {
+            tail = tail.next;
+            front = front.next;
         }
-        
-        front.next=front.next.next;//删除倒数第n个节点
-        
+    
+        front.next = front.next.next;//删除倒数第n个节点
+    
         return dummy.next;
     }
+    
+    protected static class ListNode {
+        int val;
+        ListNode next;
+        
+        ListNode( int x ) { val = x; }
+    }
+    
 }
