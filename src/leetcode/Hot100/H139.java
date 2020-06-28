@@ -1,6 +1,6 @@
 package leetcode.Hot100;
 
-import org.jetbrains.annotations.NotNull;
+import com.sun.istack.internal.NotNull;
 import org.junit.Assert;
 import org.junit.Test;
 
