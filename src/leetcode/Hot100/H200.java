@@ -53,7 +53,6 @@ public class H200 {
                 {'0', '0', '0', '0', '0'}
         };
         H200 h200 = new H200();
-        // System.out.println( h200.ufsNumIslands( grid ) );
         Assert.assertEquals( 1, h200.ufsNumIslands( grid ) );
     }
     
@@ -77,7 +76,9 @@ public class H200 {
             for (int j = 0; j < grid[i].length; j++) {
                 if (grid[i][j] == '1') {
                     grid[i][j] = '0';
-                    
+    
+                    unionFindSet.union( i * C + j );
+    
                     if (i - 1 >= 0 && grid[i - 1][j] == '1') {
                         unionFindSet.union( i * C + j, ( i - 1 ) * C + j );
                     }
@@ -90,11 +91,24 @@ public class H200 {
                     if (j + 1 < C && grid[i][j + 1] == '1') {
                         unionFindSet.union( i * C + j, i * C + j + 1 );
                     }
-                    
+    
                 }
             }
         }
         return unionFindSet.getSetsNum();
+    
+    }
+    
+    @Test
+    public void test3() {
+        char[][] grid = new char[][]{
+                {'1', '1', '0', '0', '0'},
+                {'1', '1', '0', '0', '0'},
+                {'0', '0', '1', '0', '0'},
+                {'0', '0', '0', '1', '1'}
+        };
+        H200 h200 = new H200();
+        Assert.assertEquals( 3, h200.ufsNumIslands( grid ) );
     }
     
     /**
@@ -174,6 +188,7 @@ public class H200 {
          * @param indexb
          */
         public void union( int indexa, int indexb ) {
+            // System.out.println( "union(int, int): indexa" + indexa + " , idexb= " + indexb );
             if (parents[indexa] == -1 && parents[indexb] == -1) {
                 parents[indexa] = indexa;
                 parents[indexb] = indexa;
@@ -181,17 +196,13 @@ public class H200 {
             }
             
             if (parents[indexa] == -1) {
-                parents[indexa] = indexa;
-                
                 int rootb = find( indexb );
-                parents[rootb] = indexa;
+                parents[indexa] = rootb;
                 return;
             }
             if (parents[indexb] == -1) {
-                parents[indexb] = indexb;
-                
                 int roota = find( indexa );
-                parents[roota] = indexb;
+                parents[indexb] = roota;
                 return;
             }
             int roota = find( indexa );
@@ -208,12 +219,18 @@ public class H200 {
          * @return
          */
         public int find( int index ) {
+            // System.out.println( "find(): index=" + index + Arrays.toString( parents ) );
+    
+            if (parents[index] == -1) {
+                return index;
+            }
+    
             // 查找代表该节点的根节点
             int root = index;
-            while (parents[root] != root || parents[root] > 0) {
+            while (parents[root] != root) {
                 root = parents[root];
             }
-            
+    
             // 路径压缩
             while (parents[index] != root) {
                 int parent = parents[index];
@@ -230,6 +247,7 @@ public class H200 {
          * @return
          */
         public int getSetsNum() {
+            // System.out.println( Arrays.toString( parents ) );
             int num = 0;
             for (int i = 0; i < parents.length; i++) {
                 if (i == parents[i]) {
@@ -238,7 +256,17 @@ public class H200 {
             }
             return num;
         }
-        
+    
+        /**
+         * 处理只有一个节点的孤岛
+         *
+         * @param i
+         */
+        public void union( int i ) {
+            if (parents[i] == -1) {
+                parents[i] = i;
+            }
+        }
     }
     
 }
