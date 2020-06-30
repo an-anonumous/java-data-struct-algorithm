@@ -24,14 +24,28 @@ import java.util.PriorityQueue;
  */
 public class H215 {
     
+    @Test
+    public void test1() {
+        H215 h215 = new H215();
+        Assert.assertEquals( 4, h215.findKthLargest( new int[]{3, 2, 3, 1, 2, 4, 5, 5, 6}, 4 ) );
+    }
+    
     public int findKthLargest( int[] nums, int k ) {
         int start = 0, end = nums.length - 1;
         
-        int m = partition( nums, start, end );
-        if (end - m + 1 > k) {
-            start = k;
-        } else {
-        
+        int m = start;
+        while (true) {
+            m = partition( nums, start, end );
+            if (end - m + 1 == k) {
+                return nums[m];
+            } else {
+                if (end - m + 1 > k) {
+                    start = m + 1;
+                } else {
+                    k -= ( end - m + 1 );
+                    end = m - 1;
+                }
+            }
         }
     }
     
@@ -56,6 +70,7 @@ public class H215 {
             // 此时遇到左边第一个大于temp的元素nums[i]
             nums[j] = nums[i];
         }
+        nums[i] = temp;
         return i;
     }
     
@@ -75,12 +90,18 @@ public class H215 {
                 heap.poll();
             }
         }
-        
+    
         return heap.peek();
     }
     
     @Test
-    public void test1() {
+    public void test2() {
+        H215 h215 = new H215();
+        Assert.assertEquals( 5, h215.findKthLargest( new int[]{3, 2, 1, 5, 6, 4}, 2 ) );
+    }
+    
+    @Test
+    public void test3() {
         H215 h215 = new H215();
         Assert.assertEquals( 5, h215.largestByHeap( new int[]{3, 2, 1, 5, 6, 4}, 2 ) );
     }
