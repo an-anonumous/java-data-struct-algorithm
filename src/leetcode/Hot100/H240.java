@@ -21,7 +21,9 @@ package leetcode.Hot100;
  * 给定 target = 20，返回 false。
  *
  */
+
 public class H240 {
+    
     /**
      * 如下图所示满足题意的矩阵中每个“7”型是一个连续递增的序列，从最右上角元素开始与target比较，每次淘汰一行或者一列。
      *
@@ -36,6 +38,23 @@ public class H240 {
      * @return
      */
     public boolean searchMatrix( int[][] matrix, int target ) {
+        if (matrix == null || matrix.length == 0) {
+            return false;
+        }
     
+        final int R = matrix.length;
+        final int C = matrix[0].length;
+    
+        int r = 0, c = C - 1;
+        while (c >= 0 && r < R) {
+            if (matrix[r][c] == target) {
+                return true;
+            } else if (matrix[r][c] < target) {
+                r++;//淘汰当前行
+            } else {
+                c--;
+            }
+        }
+        return false;
     }
 }
