@@ -1,6 +1,5 @@
 package leetcode.Hot100;
 
-import com.sun.istack.internal.NotNull;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -114,7 +113,7 @@ public class H139 {
      * @param wordDict
      * @return
      */
-    public boolean dpWordBreak( String s, @NotNull List<String> wordDict ) {
+    public boolean dpWordBreak( String s,  List<String> wordDict ) {
         Set<String> dict = new HashSet<>();
         for (String word : wordDict) {
             dict.add( word );

@@ -1,6 +1,5 @@
 package leetcode.SwordFingerOffer;
 
-import com.sun.istack.internal.NotNull;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
@@ -56,7 +55,7 @@ public class MS12 {
         return false;
     }
 
-    private boolean dfs( char[][] board, int r, int c, @NotNull String word, int index, boolean[][] visited ) {
+    private boolean dfs( char[][] board, int r, int c, String word, int index, boolean[][] visited ) {
         if (visited[r][c]) {
             return false;
         }
