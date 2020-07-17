@@ -40,12 +40,48 @@ public class L122 {
     
     @Test
     public void test1() {
-        Assert.assertEquals( 4, maxProfit( new int[]{7, 1, 5, 3, 6, 4} ) );
+        Assert.assertEquals( 7, maxProfit( new int[]{7, 1, 5, 3, 6, 4} ) );
     }
     
     @Test
     public void test2() {
+        Assert.assertEquals( 4, maxProfit( new int[]{1, 2, 3, 4, 5} ) );
+    }
+    
+    @Test
+    public void test3() {
         Assert.assertEquals( 0, maxProfit( new int[]{7, 6, 4, 3, 1} ) );
+    }
+    
+    
+    public int maxProfit( int[] prices ) {
+        if (prices == null || prices.length == 0) {
+            return 0;
+        }
+        
+        int sum = 0;
+        for (int i = 1; i < prices.length; i++) {
+            if (prices[i - 1] < prices[i]) {
+                sum += prices[i] - prices[i - 1];
+            }
+        }
+        
+        return sum;
+    }
+    
+    @Test
+    public void test4() {
+        Assert.assertEquals( 7, dpMaxProfit( new int[]{7, 1, 5, 3, 6, 4} ) );
+    }
+    
+    @Test
+    public void test5() {
+        Assert.assertEquals( 4, dpMaxProfit( new int[]{1, 2, 3, 4, 5} ) );
+    }
+    
+    @Test
+    public void test6() {
+        Assert.assertEquals( 0, dpMaxProfit( new int[]{7, 6, 4, 3, 1} ) );
     }
     
     /**
@@ -62,7 +98,7 @@ public class L122 {
      * @param prices
      * @return
      */
-    public int maxProfit( int[] prices ) {
+    public int dpMaxProfit( int[] prices ) {
         if (prices == null || prices.length == 0) {
             return 0;
         }
