@@ -2,6 +2,9 @@ package leetcode.sword.finger.offer;
 
 import org.junit.Test;
 
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * 重建二叉树
  * 输入某二叉树的前序遍历和中序遍历的结果，请重建该二叉树。假设输入的前序遍历和中序遍历的结果中都不含重复的数字。
@@ -111,43 +114,43 @@ public class MS07 {
      * @param inorder
      * @return
      */
-    // public TreeNode buildTree(int[] preorder , int[] inorder) {
-    //     if (preorder == null || inorder == null || preorder.length == 0 || inorder.length == 0) {
-    //         return null;
-    //     }
-    //
-    //     Map<Integer, Integer> map = new HashMap<>();
-    //     for (int i = 0; i < inorder.length; i++) {
-    //         map.put(inorder[i] , i);
-    //     }
-    //
-    //     return buildTree(preorder , 0 , preorder.length - 1 , inorder , 0 ,
-    //             inorder.length - 1 , map);
-    // }
-    //
-    // public TreeNode buildTree(int[] preorder , int preorderStart , int preorderEnd , int[] inorder , int
-    // inorderStart ,
-    //                           int inorderEnd , Map<Integer, Integer> indexMap) {
-    //     if (preorderStart > preorderEnd || inorderStart > inorderEnd) {
-    //         return null;
-    //     }
-    //
-    //     TreeNode root = new TreeNode(preorder[preorderStart]);
-    //     if (preorderStart == preorderEnd) {
-    //         return root;
-    //     } else if (preorderStart < preorderEnd) {
-    //         Integer rootIndex = indexMap.get(preorder[preorderStart]);//根节点在中序遍历中的位置
-    //         int leftNum = rootIndex - inorderStart, rightNum = inorderEnd - rootIndex;
-    //
-    //         root.left = buildTree(preorder , preorderStart + 1 , preorderStart + leftNum , inorder , inorderStart ,
-    //                 rootIndex - 1 , indexMap);
-    //         root.right = buildTree(preorder , preorderStart + leftNum + 1 , preorderEnd , inorder , rootIndex + 1 ,
-    //                 inorderEnd , indexMap);
-    //         return root;
-    //     }
-    //
-    //     return null;
-    // }
+    public TreeNode buildTree2( int[] preorder, int[] inorder ) {
+        if (preorder == null || inorder == null || preorder.length == 0 || inorder.length == 0) {
+            return null;
+        }
+    
+        Map<Integer, Integer> map = new HashMap<>();
+        for (int i = 0; i < inorder.length; i++) {
+            map.put( inorder[i], i );
+        }
+    
+        return buildTree( preorder, 0, preorder.length - 1, inorder, 0,
+                inorder.length - 1, map );
+    }
+    
+    public TreeNode buildTree( int[] preorder, int preorderStart, int preorderEnd, int[] inorder, int
+                                                                                                          inorderStart,
+                               int inorderEnd, Map<Integer, Integer> indexMap ) {
+        if (preorderStart > preorderEnd || inorderStart > inorderEnd) {
+            return null;
+        }
+        
+        TreeNode root = new TreeNode( preorder[preorderStart] );
+        if (preorderStart == preorderEnd) {
+            return root;
+        } else if (preorderStart < preorderEnd) {
+            Integer rootIndex = indexMap.get( preorder[preorderStart] );//根节点在中序遍历中的位置
+            int leftNum = rootIndex - inorderStart, rightNum = inorderEnd - rootIndex;
+            
+            root.left = buildTree( preorder, preorderStart + 1, preorderStart + leftNum, inorder, inorderStart,
+                    rootIndex - 1, indexMap );
+            root.right = buildTree( preorder, preorderStart + leftNum + 1, preorderEnd, inorder, rootIndex + 1,
+                    inorderEnd, indexMap );
+            return root;
+        }
+        
+        return null;
+    }
     
     //         3
     //        / \

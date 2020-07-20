@@ -1,5 +1,6 @@
 package leetcode.sword.finger.offer;
 
+import org.junit.Assert;
 import org.junit.Test;
 
 /**
@@ -24,17 +25,20 @@ import org.junit.Test;
  *
  */
 public class MS04 {
-    public static void main(String[] args) {
+    
+    @Test
+    public void test1() {
         int[][] matrix = new int[][]{
-                {1 , 4 , 7 , 11 , 15} ,
-                {2 , 5 , 8 , 12 , 19} ,
-                {3 , 6 , 9 , 16 , 22} ,
-                {10 , 13 , 14 , 17 , 24} ,
-                {18 , 21 , 23 , 26 , 30}
+                {1, 4, 7, 11, 15},
+                {2, 5, 8, 12, 19},
+                {3, 6, 9, 16, 22},
+                {10, 13, 14, 17, 24},
+                {18, 21, 23, 26, 30}
         };
-        
-        System.out.println(new MS04().findNumberIn2DArray(matrix , 5));
-        System.out.println(new MS04().findNumberIn2DArray(matrix , 20));
+        Assert.assertTrue( findNumberIn2DArray( matrix, 5 ) );
+        Assert.assertFalse( findNumberIn2DArray( matrix, 20 ) );
+        Assert.assertTrue( findNumberIn2DArray2( matrix, 5 ) );
+        Assert.assertFalse( findNumberIn2DArray2( matrix, 20 ) );
     }
     
     /**
@@ -77,54 +81,83 @@ public class MS04 {
      * @param target
      * @return
      */
-    // public boolean findNumberIn2DArray(int[][] matrix , int target) {
-    //     if (matrix == null || matrix.length == 0 || matrix[0] == null || matrix[0].length == 0) {
-    //         return false;
-    //     }
-    //
-    //     int R = matrix.length;
-    //     int C = matrix[0].length;
-    //
-    //     return findNumberIn2DArray(matrix , 0 , R - 1 , 0 , C - 1 , target);
-    // }
-    //
-    // private boolean findNumberIn2DArray(int[][] matrix , int rl , int rh , int cl , int ch , int num) {
-    //     if (rl > rh || cl > ch) return false;
-    //
-    //     if (rl == rh && cl == ch) {
-    //         return num == matrix[rl][cl];
-    //     }
-    //
-    //     int r = (rl + rh) / 2;
-    //     int c = (cl + ch) / 2;
-    //
-    //     if (matrix[r][c] == num) {
-    //         return true;
-    //     } else if (num < matrix[r][c]) {
-    //         boolean res = false;
-    //         res = res || findNumberIn2DArray(matrix , rl , r , cl , c , num);
-    //         res = res || findNumberIn2DArray(matrix , r + 1 , rh , cl , c - 1 , num);//左下
-    //         res = res || findNumberIn2DArray(matrix , rl , r - 1 , c + 1 , ch , num);//右上
-    //         return res;
-    //     } else {
-    //         boolean res = false;
-    //         res = res || findNumberIn2DArray(matrix , r + 1 , rh , cl , c , num);//左下
-    //         res = res || findNumberIn2DArray(matrix , rl , r , c + 1 , ch , num);//右上
-    //         res = res || findNumberIn2DArray(matrix , r + 1 , rh , c + 1 , ch , num);
-    //         return res;
-    //     }
-    // }
+    public boolean findNumberIn2DArray2( int[][] matrix, int target ) {
+        if (matrix == null || matrix.length == 0 || matrix[0] == null || matrix[0].length == 0) {
+            return false;
+        }
+        
+        int R = matrix.length;
+        int C = matrix[0].length;
+        
+        return findNumberIn2DArray( matrix, 0, R - 1, 0, C - 1, target );
+    }
+    
+    private boolean findNumberIn2DArray( int[][] matrix, int rl, int rh, int cl, int ch, int num ) {
+        if (rl > rh || cl > ch) {
+            return false;
+        }
+        
+        if (rl == rh && cl == ch) {
+            return num == matrix[rl][cl];
+        }
+        
+        int r = ( rl + rh ) / 2;
+        int c = ( cl + ch ) / 2;
+        
+        if (matrix[r][c] == num) {
+            return true;
+        } else if (num < matrix[r][c]) {
+            boolean res = false;
+            res = res || findNumberIn2DArray( matrix, rl, r, cl, c, num );
+            res = res || findNumberIn2DArray( matrix, r + 1, rh, cl, c - 1, num );//左下
+            res = res || findNumberIn2DArray( matrix, rl, r - 1, c + 1, ch, num );//右上
+            return res;
+        } else {
+            boolean res = false;
+            res = res || findNumberIn2DArray( matrix, r + 1, rh, cl, c, num );//左下
+            res = res || findNumberIn2DArray( matrix, rl, r, c + 1, ch, num );//右上
+            res = res || findNumberIn2DArray( matrix, r + 1, rh, c + 1, ch, num );
+            return res;
+        }
+    }
     
     @Test
-    public void test1() {
+    public void test2() {
         int[][] matrix = new int[][]{
-                {1 , 2 , 3 , 4 , 5} ,
-                {6 , 7 , 8 , 9 , 10} ,
-                {11 , 12 , 13 , 14 , 15} ,
-                {16 , 17 , 18 , 19 , 20} ,
-                {21 , 22 , 23 , 24 , 25}
+                {1, 4, 7, 11, 15},
+                {2, 5, 8, 12, 19},
+                {3, 6, 9, 16, 22},
+                {10, 13, 14, 17, 24},
+                {18, 21, 23, 26, 30}
         };
-        System.out.println(new MS04().findNumberIn2DArray(matrix , 5));
+        Assert.assertTrue( findNumberIn2DArray3( matrix, 5 ) );
+        Assert.assertFalse( findNumberIn2DArray3( matrix, 20 ) );
+    }
+    
+    /**
+     * 从左下角开始查找
+     *
+     * @param matrix
+     * @param target
+     * @return
+     */
+    public boolean findNumberIn2DArray3( int[][] matrix, int target ) {
+        if (matrix == null || matrix.length == 0 || matrix[0].length == 0) {
+            return false;
+        }
+        
+        final int R = matrix.length, C = matrix[0].length;
+        int r = R - 1, c = 0;
+        while (r >= 0 && c < C) {
+            if (matrix[r][c] == target) {
+                return true;
+            } else if (matrix[r][c] > target) {
+                --r;
+            } else {
+                ++c;
+            }
+        }
+        return false;
     }
 }
 

@@ -29,12 +29,13 @@ package leetcode.sword.finger.offer;
  * int param_2 = obj.deleteHead();
  */
 
-import java.util.LinkedList;
+import java.util.ArrayDeque;
+import java.util.Deque;
 
 /**
  * 维护两个栈，第一个栈存储元素，第二个栈用于辅助操作。
  */
-public class MS09 {
+public class MS09_01 {
     // // 不推荐使用java Stack类的原因：首先Stack是继承自Vector而不是内部组合Vector来实现；
     // // 其次就是Stack是线程安全的
     // Stack<Integer> stack1;
@@ -66,35 +67,68 @@ public class MS09 {
     //     return stack1.pop();
     // }
     
-    // 使用LinkedList实现
-    int size = 0;
-    private LinkedList<Integer> stack1;
-    private LinkedList<Integer> stack2;
+    /*此种解法移动元素过多*/
     
-    public MS09() {
-        size = 0;
-        stack1 = new LinkedList<>();
-        stack2 = new LinkedList<>();
+    //
+    // // 使用LinkedList实现
+    // int size = 0;
+    // private LinkedList<Integer> stack1;
+    // private LinkedList<Integer> stack2;
+    //
+    // public MS09() {
+    //     size = 0;
+    //     stack1 = new LinkedList<>();
+    //     stack2 = new LinkedList<>();
+    // }
+    //
+    // //使用stack1的栈顶作为队列的队首
+    // public void appendTail(int value) {
+    //     while (!stack1.isEmpty()) {
+    //         stack2.addLast(stack1.removeLast());
+    //     }
+    //     stack1.addLast(value);
+    //     ++size;
+    // }
+    //
+    // public int deleteHead() {
+    //     if (size == 0) {
+    //         return -1;
+    //     }
+    //
+    //     while (!stack2.isEmpty()) {
+    //         stack1.addLast(stack2.removeLast());
+    //     }
+    //     --size;
+    //     return stack1.removeLast();
+    // }
+    
+    
+}
+
+
+class CQueue {
+    private Deque<Integer> stack1;
+    private Deque<Integer> stack2;
+    
+    public CQueue() {
+        stack1 = new ArrayDeque<>();
+        stack2 = new ArrayDeque<>();
     }
     
-    //使用stack1的栈顶作为队列的队首
-    public void appendTail(int value) {
-        while (!stack1.isEmpty()) {
-            stack2.addLast(stack1.removeLast());
-        }
-        stack1.addLast(value);
-        ++size;
+    public void appendTail( int value ) {
+        stack1.push( value );
     }
     
     public int deleteHead() {
-        if (size == 0) {
-            return -1;
+        if (!stack2.isEmpty()) {
+            return stack2.pop();
         }
-        
-        while (!stack2.isEmpty()) {
-            stack1.addLast(stack2.removeLast());
+        while (!stack1.isEmpty()) {
+            stack2.push( stack1.pop() );
         }
-        --size;
-        return stack1.removeLast();
+        if (!stack2.isEmpty()) {
+            return stack2.pop();
+        }
+        return -1;
     }
 }

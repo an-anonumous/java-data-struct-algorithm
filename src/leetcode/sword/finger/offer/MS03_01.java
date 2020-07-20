@@ -17,10 +17,10 @@ import java.util.Arrays;
  * 限制：
  * 2 <= n <= 100000
  */
-public class MS03 {
+public class MS03_01 {
     public static void main( String[] args ) {
-        MS03 ms03 = new MS03();
-        int number = ms03.findRepeatNumber1( new int[]{2, 3, 1, 0, 2, 5, 3} );
+        MS03_01 ms0301 = new MS03_01();
+        int number = ms0301.findRepeatNumber1( new int[]{2, 3, 1, 0, 2, 5, 3} );
         System.out.println( number );
     }
     
@@ -146,6 +146,8 @@ public class MS03 {
     }
     
     /**
+     * 重排数组
+     *
      * 在一趟扫描中让数字k保存在下标为k的位置，同时检查是否重复
      *
      * @param nums
