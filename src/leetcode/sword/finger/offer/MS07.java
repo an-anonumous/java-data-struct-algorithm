@@ -31,21 +31,21 @@ class TreeNode {
     TreeNode left;
     TreeNode right;
     
-    TreeNode(int x) { val = x; }
+    TreeNode( int x ) { val = x; }
     
     @Override
     public String toString() {
         return "TreeNode{" +
-                "val=" + val +
-                ", left=" + left +
-                ", right=" + right +
-                '}';
+                       "val=" + val +
+                       ", left=" + left +
+                       ", right=" + right +
+                       '}';
     }
 }
 
 public class MS07 {
-    public static void main(String[] args) {
-        System.out.println(new MS07().buildTree(new int[]{3 , 9 , 20 , 15 , 7} , new int[]{9 , 3 , 15 , 20 , 7}));
+    public static void main( String[] args ) {
+        System.out.println( new MS07().buildTree( new int[]{3, 9, 20, 15, 7}, new int[]{9, 3, 15, 20, 7} ) );
     }
     
     /**
@@ -85,7 +85,7 @@ public class MS07 {
      * 若上一个元素等于中序遍历下标指向的元素，则从栈内弹出一个元素，同时令中序遍历下标指向下一个元素，之后继续判断栈顶元素是否等于中序遍历下标指向的元素，若相等则重复该操作，直至栈为空或者元素不相等。然后令当前元素为最后一个想等元素的右节点。
      * 遍历结束，返回根节点。
      */
-    public TreeNode buildTree(int[] preorder , int[] inorder) {
+    public TreeNode buildTree( int[] preorder, int[] inorder ) {
         return null;
     }
     
@@ -128,8 +128,7 @@ public class MS07 {
                 inorder.length - 1, map );
     }
     
-    public TreeNode buildTree( int[] preorder, int preorderStart, int preorderEnd, int[] inorder, int
-                                                                                                          inorderStart,
+    public TreeNode buildTree( int[] preorder, int preorderStart, int preorderEnd, int[] inorder, int inorderStart,
                                int inorderEnd, Map<Integer, Integer> indexMap ) {
         if (preorderStart > preorderEnd || inorderStart > inorderEnd) {
             return null;
@@ -163,11 +162,45 @@ public class MS07 {
     // 4
     @Test
     public void test1() {
-        System.out.println(new MS07().buildTree(new int[]{3 , 9 , 8 , 5 , 4 , 10 , 20 , 15 , 7} , new int[]{4 , 5 ,
-                8 , 10 , 9 , 3 , 15 , 20 , 7}));
+        System.out.println( new MS07().buildTree( new int[]{3, 9, 8, 5, 4, 10, 20, 15, 7}, new int[]{4, 5,
+                8, 10, 9, 3, 15, 20, 7} ) );
         // TreeNode{val=3, left=TreeNode{val=9, left=TreeNode{val=8, left=TreeNode{val=5, left=TreeNode{val=4,
         // left=null, right=null}, right=null}, right=TreeNode{val=10, left=null, right=null}}, right=null},
         // right=TreeNode{val=20, left=TreeNode{val=15, left=null, right=null}, right=TreeNode{val=7, left=null,
         // right=null}}}
     }
+    
+    
+    public TreeNode reConstructBinaryTree( int[] pre, int[] in ) {
+        if (pre == null || pre.length == 0 || in == null || in.length == 0) {
+            return null;
+        }
+        
+        Map<Integer, Integer> map = new HashMap<Integer, Integer>();
+        for (int i = 0; i < in.length; i++) {
+            map.put( in[i], i );
+        }
+        
+        return reConstructBinaryTree( pre, 0, pre.length - 1, in, 0, in.length - 1, map );
+    }
+    
+    public TreeNode reConstructBinaryTree( int[] pre, int preOrderStart, int preOrderEnd, int[] in, int inOrderStart,
+                                           int inOrderEnd, Map<Integer, Integer> map ) {
+        if (preOrderStart > preOrderEnd) {
+            return null;
+        }
+        
+        TreeNode root = new TreeNode( pre[preOrderStart] );
+        int index = map.get( pre[preOrderStart] );
+        
+        int lnum = index - inOrderStart;
+        int rnum = inOrderEnd - index;
+        
+        root.left = reConstructBinaryTree( pre, preOrderStart + 1, preOrderStart + lnum, in, inOrderStart, index - 1,
+                map );
+        root.right = reConstructBinaryTree( pre, preOrderStart + lnum + 1, preOrderEnd, in, index + 1,
+                inOrderEnd, map );
+        return root;
+    }
+    
 }

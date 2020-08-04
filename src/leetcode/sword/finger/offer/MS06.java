@@ -73,7 +73,7 @@ public class MS06 {
         }
         
         int[] arr = new int[len];
-        
+    
         curr = head;
         --len;
         while (curr != null) {
@@ -81,7 +81,7 @@ public class MS06 {
             curr = curr.next;
             --len;
         }
-        
+    
         return arr;
     }
 }
