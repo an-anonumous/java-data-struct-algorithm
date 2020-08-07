@@ -1,12 +1,15 @@
 package leetcode.sword.finger.offer;
 
+import org.junit.Assert;
 import org.junit.Test;
+
+import java.util.Arrays;
 
 import static org.junit.Assert.assertEquals;
 
 /**
  * 面试题12. 矩阵中的路径
- * <p>
+ *
  * 请设计一个函数，用来判断在一个矩阵中是否存在一条包含某字符串所有字符的路径。路径可以从矩阵中的任意一格开始，
  * 每一步可以在矩阵中向左、右、上、下移动一格。如果一条路径经过了矩阵的某一格，那么该路径不能再次进入该格子。
  * 例如，在下面的3×4的矩阵中包含一条字符串“bfce”的路径（路径中的字母用加粗标出）。 *
@@ -15,17 +18,17 @@ import static org.junit.Assert.assertEquals;
  * ["s","f","c","s"],
  * ["a","d","e","e"]
  * ]
- * <p>
+ *
  * 但矩阵中不包含字符串“abfb”的路径，因为字符串的第一个字符b占据了矩阵中的第一行第二个格子之后，路径不能再次进入这个格子。
- * <p>
+ *
  * 示例 1： *
  * 输入：board = [["A","B","C","E"],["S","F","C","S"],["A","D","E","E"]], word = "ABCCED"
  * 输出：true
- * <p>
+ *
  * 示例 2： *
  * 输入：board = [["a","b"],["c","d"]], word = "abcd"
  * 输出：false
- * <p>
+ *
  * 提示： *
  * 1 <= board.length <= 200
  * 1 <= board[i].length <= 200
@@ -152,7 +155,7 @@ public class MS12 {
         };
         assertEquals( true, ms12.exist( matrix, "ABCESEEEFS" ) );
     }
-
+    
     @Test
     public void test7() {
         MS12 ms12 = new MS12();
@@ -161,4 +164,73 @@ public class MS12 {
         };
         assertEquals( false, ms12.exist( matrix, "aaa" ) );
     }
+    
+    // ========================================================================
+    
+    @Test
+    public void test21() {
+        Assert.assertTrue( hasPath( "ABCESFCSADEE".toCharArray(), 3, 4, "ABCCED".toCharArray() ) );
+    }
+    
+    public boolean hasPath( char[] matrix, int rows, int cols, char[] str ) {
+        if (matrix == null || rows == 0 || str == null || str.length == 0) {
+            return false;
+        }
+        
+        boolean[][] used = new boolean[rows][cols];
+        
+        for (int i = 0; i < rows; ++i) {
+            for (int j = 0; j < cols; ++j) {
+                
+                for (boolean[] booleans : used) {
+                    Arrays.fill( booleans, false );
+                }
+                
+                if (traceBacke( matrix, rows, cols, i, j, str, 0, used )) {
+                    return true;
+                }
+            }
+        }
+        return false;
+        
+    }
+    
+    private boolean traceBacke( char[] matrix, int rows, int cols, int r, int c, char[] str, int k, boolean[][] used ) {
+        // 重复访问一个节点
+        if (used[r][c] == true || k > str.length - 1) {
+            return false;
+        }
+        
+        // 当前字符匹配失败
+        if (matrix[r * cols + c] != str[k]) {
+            return false;
+        }
+        
+        // 完全匹配
+        if (k == str.length - 1) {
+            return true;
+        }
+        
+        used[r][c] = true;
+        if (r + 1 < rows - 1 && traceBacke( matrix, rows, cols, r + 1, c, str, k + 1, used )) {
+            return true;
+        }
+        
+        if (r - 1 >= 0 && traceBacke( matrix, rows, cols, r - 1, c, str, k + 1, used )) {
+            return true;
+        }
+        
+        if (c + 1 < cols - 1 && traceBacke( matrix, rows, cols, r, c + 1, str, k + 1, used )) {
+            return true;
+        }
+        
+        if (c - 1 >= 0 && traceBacke( matrix, rows, cols, r, c - 1, str, k + 1, used )) {
+            return true;
+        }
+        
+        used[r][c] = false;
+        
+        return false;
+    }
+    
 }
