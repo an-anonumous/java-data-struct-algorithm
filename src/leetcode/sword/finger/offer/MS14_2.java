@@ -51,20 +51,20 @@ public class MS14_2 {
         } else if (n == 4) {
             return 4;
         }
-        
+    
         // 如果绳子总长度大于3，剩下长度为小于等于3时，不拆要比拆分的值大
-        
+    
         // dp[k]代表长度为k的绳子，分割后的长度连乘的最大值
         BigInteger[] dp = new BigInteger[n + 1];
-        for (int i = 0; i <= 4; i++) {
+        dp[0] = new BigInteger( String.valueOf( 1 ) );
+        for (int i = 1; i <= 4; i++) {
             dp[i] = new BigInteger( String.valueOf( i ) );
         }
-        
+    
         for (int i = 5; i <= n; i++) {
             dp[i] = new BigInteger( String.valueOf( 0 ) );
-            for (int j = 1; j < i; j++) {
-                BigInteger temp =
-                        ( dp[i - j].multiply( BigInteger.valueOf( j ) ) ).mod( BigInteger.valueOf( 1000000007 ) );
+            for (int j = 1; j <= i / 2; j++) {
+                BigInteger temp = dp[i - j].multiply( dp[j] );
                 dp[i] = dp[i].max( temp );
             }
         }

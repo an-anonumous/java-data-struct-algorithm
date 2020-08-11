@@ -167,6 +167,11 @@ public class MS12 {
     
     // ========================================================================
     
+    /**
+     * ABCE
+     * SFCS
+     * ADEE
+     */
     @Test
     public void test21() {
         Assert.assertTrue( hasPath( "ABCESFCSADEE".toCharArray(), 3, 4, "ABCCED".toCharArray() ) );
@@ -185,7 +190,7 @@ public class MS12 {
                 for (boolean[] booleans : used) {
                     Arrays.fill( booleans, false );
                 }
-                
+    
                 if (traceBacke( matrix, rows, cols, i, j, str, 0, used )) {
                     return true;
                 }
@@ -195,7 +200,8 @@ public class MS12 {
         
     }
     
-    private boolean traceBacke( char[] matrix, int rows, int cols, int r, int c, char[] str, int k, boolean[][] used ) {
+    private boolean traceBacke( char[] matrix, final int rows, final int cols, int r, int c, char[] str, int k,
+                                boolean[][] used ) {
         // 重复访问一个节点
         if (used[r][c] == true || k > str.length - 1) {
             return false;
@@ -212,7 +218,7 @@ public class MS12 {
         }
         
         used[r][c] = true;
-        if (r + 1 < rows - 1 && traceBacke( matrix, rows, cols, r + 1, c, str, k + 1, used )) {
+        if (r + 1 <= rows - 1 && traceBacke( matrix, rows, cols, r + 1, c, str, k + 1, used )) {
             return true;
         }
         
@@ -220,7 +226,7 @@ public class MS12 {
             return true;
         }
         
-        if (c + 1 < cols - 1 && traceBacke( matrix, rows, cols, r, c + 1, str, k + 1, used )) {
+        if (c + 1 <= cols - 1 && traceBacke( matrix, rows, cols, r, c + 1, str, k + 1, used )) {
             return true;
         }
         

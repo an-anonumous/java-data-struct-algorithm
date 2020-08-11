@@ -43,7 +43,7 @@ public class MS14_1 {
     
     /**
      * 每一步分割一段，直到绳子分完。在每一步中群举所有可能的长度取值。
-     * 每一步都群集所有的可能
+     * 每一步都群举所有的可能
      *
      * @param n
      * @return
@@ -83,14 +83,14 @@ public class MS14_1 {
     
     
     @Test
-    public void Test() {
+    public void Test1() {
         MS14_1 ms14_1 = new MS14_1();
         Assert.assertEquals( 1, ms14_1.cuttingRope( 2 ) );
         Assert.assertEquals( 1, ms14_1.dpcutRope( 2 ) );
     }
     
     @Test
-    public void Test1() {
+    public void Test2() {
         MS14_1 ms14_1 = new MS14_1();
         Assert.assertEquals( 36, ms14_1.dpcutRope( 10 ) );
     }
@@ -138,10 +138,9 @@ public class MS14_1 {
     }
     
     @Test
-    public void Test2() {
+    public void Test3() {
         MS14_1 ms14_1 = new MS14_1();
         System.out.println( ms14_1.dpcutRope( 10000 ) );
     }
-    
     
 }
