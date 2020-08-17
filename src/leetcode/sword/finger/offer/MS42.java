@@ -20,7 +20,7 @@ import java.util.Arrays;
  * 1 <= arr.length <= 10^5
  * -100 <= arr[i] <= 100
  */
-public class Ms42 {
+public class MS42 {
     
     @Test
     public void test() {

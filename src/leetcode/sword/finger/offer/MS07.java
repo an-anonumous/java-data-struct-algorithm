@@ -24,25 +24,6 @@ import java.util.Map;
  * 0 <= 节点个数 <= 5000
  */
 
-// Definition for a binary tree node.
-class TreeNode {
-    int val;
-    
-    TreeNode left;
-    TreeNode right;
-    
-    TreeNode( int x ) { val = x; }
-    
-    @Override
-    public String toString() {
-        return "TreeNode{" +
-                       "val=" + val +
-                       ", left=" + left +
-                       ", right=" + right +
-                       '}';
-    }
-}
-
 public class MS07 {
     public static void main( String[] args ) {
         System.out.println( new MS07().buildTree( new int[]{3, 9, 20, 15, 7}, new int[]{9, 3, 15, 20, 7} ) );
@@ -192,10 +173,10 @@ public class MS07 {
         
         TreeNode root = new TreeNode( pre[preOrderStart] );
         int index = map.get( pre[preOrderStart] );
-        
+    
         int lnum = index - inOrderStart;
         int rnum = inOrderEnd - index;
-        
+    
         root.left = reConstructBinaryTree( pre, preOrderStart + 1, preOrderStart + lnum, in, inOrderStart, index - 1,
                 map );
         root.right = reConstructBinaryTree( pre, preOrderStart + lnum + 1, preOrderEnd, in, index + 1,
@@ -203,4 +184,21 @@ public class MS07 {
         return root;
     }
     
+    private static class TreeNode {
+        int val;
+        
+        TreeNode left;
+        TreeNode right;
+        
+        TreeNode( int x ) { val = x; }
+        
+        @Override
+        public String toString() {
+            return "TreeNode{" +
+                           "val=" + val +
+                           ", left=" + left +
+                           ", right=" + right +
+                           '}';
+        }
+    }
 }
